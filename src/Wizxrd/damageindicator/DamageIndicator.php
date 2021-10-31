@@ -27,16 +27,6 @@ class DamageIndicator extends PluginBase
         $this->getScheduler()->scheduleRepeatingTask(new RemoveItemTask($this), 20);
     }
     
-    public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
-    {
-        if ($command->getName() === "drop")
-        {
-            $this->removeItemActor($sender);
-            $this->addItemActor($sender, $sender->asVector3(), "Test");
-        }
-        return true;
-    }
-    
     public function addItemActor($player, $pos, $text)
     {
         $dist = ($player->distance($pos) / 0.25);
@@ -50,17 +40,7 @@ class DamageIndicator extends PluginBase
         $pk->metadata = $this->dataProperty($text)->getAll();
         $player->dataPacket($pk);
         $this->packets[$player->getName()] = (time()-($this->startup))+2;
-    }
-    
-    public function moveItemActor($player)
-    {
-        $pk = MotionPredictionHintsPacket::create(
-        1100,
-        new Vector3(0, 0.05, 0),
-        false
-        );
-        $player->dataPacket($pk);
-    }
+    }		
     
     public function removeItemActor($player)
     {

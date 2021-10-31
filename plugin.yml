@@ -1,0 +1,9 @@
+name: DamageIndicator
+author: Wizxrd
+version: 1.0
+main: Wizxrd\damageindicator\DamageIndicator
+api: 3
+commands:
+  drop:
+    description: "drops item"
+    default: op

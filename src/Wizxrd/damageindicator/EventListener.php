@@ -10,9 +10,10 @@ use pocketmine\network\mcpe\protocol\types\GameMode;
 
 class EventListener implements Listener
 {
+    /** @var DamageIndicator */
     private $plugin;
     
-    public function __construct($plugin)
+    public function __construct(DamageIndicator $plugin)
     {
     	$this->plugin = $plugin;
     }
@@ -20,7 +21,7 @@ class EventListener implements Listener
     /**
      *	@priority MONITOR
      */
-    public function onHit(EntityDamageByEntityEvent $ev)
+    public function onHit(EntityDamageByEntityEvent $ev): void
     {
         $entity = $ev->getEntity();
         $damager = $ev->getDamager();
@@ -31,7 +32,6 @@ class EventListener implements Listener
             {
             	$this->plugin->removeItemActor($damager);
             	$this->plugin->addItemActor($damager, $entity->asVector3(), $damage);
-                // $this->plugin->moveItemActor($damager);
             }
         }
     }

@@ -1,5 +1,5 @@
 name: DamageIndicator
 author: Wizxrd
 version: 1.0
-main: Wizxrd\damageindicator\DamageIndicator
-api: ["3.0.0"]
+main: Wizxrd\DamageIndicator\Main
+api: 4.0.0

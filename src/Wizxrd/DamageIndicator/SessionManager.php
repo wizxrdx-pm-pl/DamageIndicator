@@ -40,16 +40,17 @@ class SessionManager {
 
     private function calculateTextInitialPosition(Vector3 $victimPos): Vector3
     {
+        // TODO: Check the Entity height
         $attackerPos = $this->attacker->getPosition();
         $dist = ($attackerPos->distance($victimPos) / 0.25);
         if ($dist != 0) {
             return $victimPos->add(
                 ($attackerPos->getX() - $victimPos->getX()) / $dist,
-                0.70,
+                0.80,
                 ($attackerPos->getZ() - $victimPos->getZ()) / $dist
             );
         }
-        return $victimPos->add(0, 0.70, 0);
+        return $victimPos->add(0, 0.80, 0);
     }
 
     public function onUpdate(): void

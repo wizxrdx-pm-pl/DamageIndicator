@@ -70,12 +70,4 @@ class SessionManager {
     {
         return $this->attacker;
     }
-
-    public function despawnAll(): void
-    {
-        foreach ($this->indicators as $indicator)
-        {
-            $indicator->despawn();
-        }
-    }
 }

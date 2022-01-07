@@ -43,7 +43,7 @@ class Main extends PluginBase
 
     public function removeSession(Player $player): void
     {
-        ($this->sessionManagers[$player->getName()])->despawnAll();
+        unset($this->sessionManagers[$player->getName()]);
     }
 
     public function sendIndicator(Player $attacker, Position $victimPos, int|float $damage): void

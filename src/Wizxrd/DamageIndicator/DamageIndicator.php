@@ -3,6 +3,7 @@
 namespace Wizxrd\DamageIndicator;
 
 use pocketmine\math\Vector3;
+use pocketmine\network\mcpe\protocol\ClientboundPacket;
 use pocketmine\network\mcpe\protocol\MoveActorAbsolutePacket;
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;
 use pocketmine\network\mcpe\protocol\SetActorMotionPacket;
@@ -53,23 +54,33 @@ class DamageIndicator {
             $this->id,
             $this->getOffsetPosition(),
             0,
-            360,
+            180,
             0,
             MoveActorAbsolutePacket::FLAG_GROUND
         );
-        $this->manager->getAttacker()->getNetworkSession()->sendDataPacket($pk);
+        $this->sendPacket($pk);
     }
 
     public function sendMotion(): void
     {
         $pk = SetActorMotionPacket::create($this->id, $this->motion);
-        $this->manager->getAttacker()->getNetworkSession()->sendDataPacket($pk);
+        $this->sendPacket($pk);
     }
 
     public function despawn(): void
     {
         $pk = RemoveActorPacket::create($this->id);
-        $this->manager->getAttacker()->getNetworkSession()->sendDataPacket($pk);
+        $this->sendPacket($pk);
         unset($this->manager->indicators[$this->id]);
+    }
+
+    private function sendPacket(ClientboundPacket $pk): void
+    {
+        $player = $this->manager->getAttacker();
+        if ($player->isOnline())
+        {
+            $player->getNetworkSession()->sendDataPacket($pk);
+        }
+
     }
 }

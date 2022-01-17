@@ -13,32 +13,28 @@ class EventListener implements Listener {
 
     private Main $plugin;
     
-    public function __construct(Main $plugin)
-    {
+    public function __construct(Main $plugin) {
     	$this->plugin = $plugin;
     }
 
     /**
      * @priority MONITOR
      */
-    public function onJoin(PlayerJoinEvent $event): void
-    {
+    public function onJoin(PlayerJoinEvent $event): void {
         $this->plugin->createSession($event->getPlayer());
     }
 
     /**
      * @priority MONITOR
      */
-    public function onLeave(PlayerQuitEvent $event): void
-    {
+    public function onLeave(PlayerQuitEvent $event): void {
         $this->plugin->removeSession($event->getPlayer());
     }
     
     /**
      *	@priority MONITOR
      */
-    public function onHit(EntityDamageByEntityEvent $ev): void
-    {
+    public function onHit(EntityDamageByEntityEvent $ev): void {
         $entity = $ev->getEntity();
         $attacker = $ev->getDamager();
         if ($entity instanceof Player && $attacker instanceof Player) {

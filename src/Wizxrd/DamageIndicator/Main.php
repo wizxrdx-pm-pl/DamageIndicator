@@ -11,18 +11,15 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
 
-class Main extends PluginBase
-{
+class Main extends PluginBase {
     public array $sessionManagers = [];
     
-    public function onEnable(): void
-    {
+    public function onEnable(): void {
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getScheduler()->scheduleRepeatingTask(new UpdateTask($this), 1);
     }
 
-    public static function dataProperty(int|float $damage): EntityMetadataCollection
-    {
+    public static function dataProperty(int|float $damage): EntityMetadataCollection {
         $data = new EntityMetadataCollection();
 
         $data->setLong(EntityMetadataProperties::FLAGS, 0);
@@ -36,18 +33,15 @@ class Main extends PluginBase
         return $data;
     }
 
-    public function createSession(Player $attacker): void
-    {
+    public function createSession(Player $attacker): void {
         $this->sessionManagers[$attacker->getName()] = new SessionManager($attacker);
     }
 
-    public function removeSession(Player $player): void
-    {
+    public function removeSession(Player $player): void {
         unset($this->sessionManagers[$player->getName()]);
     }
 
-    public function sendIndicator(Player $attacker, Position $victimPos, int|float $damage): void
-    {
+    public function sendIndicator(Player $attacker, Position $victimPos, int|float $damage): void {
         ($this->sessionManagers[$attacker->getName()])->spawn($victimPos, $damage);
     }
 }

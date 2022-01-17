@@ -16,13 +16,11 @@ class SessionManager {
     /** @var DamageIndicator[] */
     public array $indicators = [];
 
-    public function __construct(Player $attacker)
-    {
+    public function __construct(Player $attacker) {
         $this->attacker = $attacker;
     }
 
-    public function spawn(Vector3 $location, float|int $damage): void
-    {
+    public function spawn(Vector3 $location, float|int $damage): void {
         $motion = new Vector3(0, 0.75, 0);
         $id = $this->getNewId();
         $this->indicators[$this->getNewId()] = new DamageIndicator($this, $location, $motion, $id);
@@ -38,8 +36,7 @@ class SessionManager {
         $this->attacker->getNetworkSession()->sendDataPacket($pk);
     }
 
-    private function calculateTextInitialPosition(Vector3 $victimPos): Vector3
-    {
+    private function calculateTextInitialPosition(Vector3 $victimPos): Vector3 {
         // TODO: Check the Entity height
         $attackerPos = $this->attacker->getPosition();
         $dist = ($attackerPos->distance($victimPos) / 0.25);
@@ -53,21 +50,17 @@ class SessionManager {
         return $victimPos->add(0, 0.80, 0);
     }
 
-    public function onUpdate(): void
-    {
-        foreach ($this->indicators as $indicator)
-        {
+    public function onUpdate(): void {
+        foreach ($this->indicators as $indicator) {
             $indicator->onUpdate();
         }
     }
 
-    private function getNewId(): int
-    {
+    private function getNewId(): int {
         return mt_rand() * 69420; // Cuz y not :P
     }
 
-    public function getAttacker(): Player
-    {
+    public function getAttacker(): Player {
         return $this->attacker;
     }
 }

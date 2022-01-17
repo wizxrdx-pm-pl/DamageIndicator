@@ -41,9 +41,12 @@ class EventListener implements Listener {
     {
         $entity = $ev->getEntity();
         $attacker = $ev->getDamager();
-        if($entity instanceof Player && $attacker instanceof Player) {
+        if ($entity instanceof Player && $attacker instanceof Player) {
+            if ($entity->getName() == $attacker->getName()) return;
+        }
+        if($attacker instanceof Player) {
             $damage = $ev->getFinalDamage();
-            if($damage > 0 && ($entity->isSurvival()|| $entity->isAdventure())) {
+            if($damage > 0) {
             	$this->plugin->sendIndicator($attacker, $entity->getPosition(), $damage);
             }
         }

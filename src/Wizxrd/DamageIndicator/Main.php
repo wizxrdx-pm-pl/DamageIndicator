@@ -7,23 +7,36 @@ use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\player\Player;
+use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
 
 class Main extends PluginBase {
+
     public array $sessionManagers = [];
-    
+    public Config $config;
+
+    public static Plugin $instance;
+
+    public function onLoad(): void {
+        self::$instance = $this;
+    }
+
     public function onEnable(): void {
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getScheduler()->scheduleRepeatingTask(new UpdateTask($this), 1);
+        $this->saveResource("config.yml");
+        $this->config = $this->getConfig();
     }
 
     public static function dataProperty(int|float $damage): EntityMetadataCollection {
-        $data = new EntityMetadataCollection();
+        $message = TextFormat::colorize(str_replace("{DAMAGE}", strval($damage), self::$instance->config->get("message")));
 
+        $data = new EntityMetadataCollection();
         $data->setLong(EntityMetadataProperties::FLAGS, 0);
-        $data->setString(EntityMetadataProperties::NAMETAG, TextFormat::RED."- ".$damage);
+        $data->setString(EntityMetadataProperties::NAMETAG, $message);
         $data->setFloat(EntityMetadataProperties::BOUNDING_BOX_WIDTH, 0.01);
         $data->setFloat(EntityMetadataProperties::BOUNDING_BOX_HEIGHT, 0.01);
         $data->setByte(EntityMetadataProperties::ALWAYS_SHOW_NAMETAG, 1);

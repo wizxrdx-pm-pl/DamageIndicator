@@ -7,7 +7,6 @@ use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\player\Player;
-use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
@@ -16,7 +15,7 @@ class Main extends PluginBase {
 
     public array $sessionManagers = [];
 
-    public static Plugin $instance;
+    public static PluginBase $instance;
 
     public function onLoad(): void {
         self::$instance = $this;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizxrd\DamageIndicator;
+namespace Wizxrdx\DamageIndicator;
 
 use pocketmine\item\ItemFactory;
 use pocketmine\math\Vector3;

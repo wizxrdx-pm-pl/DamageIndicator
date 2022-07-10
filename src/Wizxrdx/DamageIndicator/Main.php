@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Wizxrd\DamageIndicator;
+namespace Wizxrdx\DamageIndicator;
 
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;

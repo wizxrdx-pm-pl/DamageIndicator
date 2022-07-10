@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizxrd\DamageIndicator;
+namespace Wizxrdx\DamageIndicator;
 
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\ClientboundPacket;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Wizxrd\DamageIndicator;
+namespace Wizxrdx\DamageIndicator;
 
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDamageByEntityEvent;

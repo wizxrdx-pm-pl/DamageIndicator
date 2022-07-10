@@ -9,14 +9,12 @@ use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginBase;
-use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
 
 class Main extends PluginBase {
 
     public array $sessionManagers = [];
-    public Config $config;
 
     public static Plugin $instance;
 
@@ -28,11 +26,10 @@ class Main extends PluginBase {
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getScheduler()->scheduleRepeatingTask(new UpdateTask($this), 1);
         $this->saveResource("config.yml");
-        $this->config = $this->getConfig();
     }
 
     public static function dataProperty(int|float $damage): EntityMetadataCollection {
-        $message = TextFormat::colorize(str_replace("{DAMAGE}", strval($damage), self::$instance->config->get("message")));
+        $message = TextFormat::colorize(str_replace("{DAMAGE}", strval($damage), self::$instance->getConfig()->get("message")));
 
         $data = new EntityMetadataCollection();
         $data->setLong(EntityMetadataProperties::FLAGS, 0);
